@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CampuslernController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -23,5 +24,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/campuslern',[CampuslernController::class,'home']);
+Route::get('/campuslern/list',[CampuslernController::class,"list"]);
+Route::get('/campuslern/detail',[CampuslernController::class,"detail"]);
+
 
 require __DIR__.'/auth.php';

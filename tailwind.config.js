@@ -14,6 +14,7 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                dmsans: ['"DM Sans"', ...defaultTheme.fontFamily.sans]
             },
         },
     },
