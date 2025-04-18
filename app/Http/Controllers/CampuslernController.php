@@ -7,18 +7,13 @@ use Inertia\Inertia;
 
 class CampuslernController extends Controller
 {
-    function home(){
-
-
-
-
-
-
-        
+    function home()
+    {
         return Inertia::render('CampusLern/Home');
     }
 
-    function list(){
+    function list()
+    {
         return Inertia::render('CampusLern/List');
     }
 
