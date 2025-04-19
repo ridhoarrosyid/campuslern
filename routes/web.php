@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CampuslernAuthController;
 use App\Http\Controllers\CampuslernController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -25,9 +26,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/campuslern',[CampuslernController::class,'home']);
-Route::get('/campuslern/list',[CampuslernController::class,"list"]);
-Route::get('/campuslern/detail',[CampuslernController::class,"detail"]);
+Route::get('/campuslern', [CampuslernController::class, 'home']);
+Route::get('/campuslern/list', [CampuslernController::class, "list"]);
+Route::get('/campuslern/detail', [CampuslernController::class, "detail"]);
+Route::get('/campuslern/login', [CampuslernAuthController::class, 'login']);
+Route::get('/campuslern/create', [CampuslernController::class, 'create']);
+Route::get('/campuslern/edit', [CampuslernController::class, 'edit']);
+Route::get('/campuslern/detail-admin', [CampuslernController::class, 'detailAdmin']);
+Route::get('/campuslern/dashboard', [CampuslernController::class, 'dashboard']);
 
 
-require __DIR__.'/auth.php';
+
+require __DIR__ . '/auth.php';
