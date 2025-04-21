@@ -18,7 +18,7 @@ export default function List() {
                 S1 Bisnis Digital
             </h1>
             <div className="mx-auto mt-5 max-w-[1120px]">
-                <div className="border-fontBlue flex justify-between rounded-xl border px-12 py-6 text-2xl font-medium shadow-xl">
+                <div className="flex justify-between rounded-xl border border-fontBlue px-12 py-6 text-2xl font-medium shadow-xl">
                     <div className="flex items-center justify-between gap-x-5">
                         <p className="text-fontBlue">Universitas</p>
                         <p className="w-[340px] rounded-lg border border-darkGreySecondary px-4 py-2 text-darkGreySecondary shadow-lg">
@@ -40,7 +40,7 @@ export default function List() {
                             </ListboxButton>
                             <ListboxOptions
                                 anchor="bottom"
-                                className="mt-2 w-[340px] rounded-lg border border-darkGreySecondary text-lg text-darkGreySecondary"
+                                className="mt-2 w-[340px] rounded-lg border border-darkGreySecondary bg-white text-lg text-darkGreySecondary"
                             >
                                 {semesters.map((semester, i) => (
                                     <ListboxOption
@@ -62,7 +62,7 @@ export default function List() {
                                 key={i}
                                 className="flex items-center justify-between rounded-lg border border-[#bbbbbb]/50 p-6 shadow-lg"
                             >
-                                <p className="text-fontBlue w-[28%] text-xl">
+                                <p className="w-[28%] text-xl text-fontBlue">
                                     Facebook Ads
                                 </p>
                                 <div className="w-[20%] text-darkGreySecondary">

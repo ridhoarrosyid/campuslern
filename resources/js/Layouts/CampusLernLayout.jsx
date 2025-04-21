@@ -5,7 +5,7 @@ export default function CampusLernLayout({ children }) {
                 <div className="flex h-20 w-full max-w-[1120px] items-center justify-between">
                     <img
                         src="/logo/logo_header.png"
-                        height={28}
+                        className="h-7"
                         alt="logo campuslern"
                     />
                     <ul className="flex gap-x-[30px] font-dmsans">
