@@ -1,5 +1,6 @@
 import AdminCampusLernLayout from "@/Layouts/AdminCampusLernLayout";
 import {
+    Button,
     Field,
     Fieldset,
     Input,
@@ -19,15 +20,20 @@ const semesters = [1, 2, 3, 4, 5, 6, 7, 8];
 
 export default function Create() {
     const [selectedSemester, setSelectedSemester] = useState(semesters[0]);
+    const [inputContent, setInputContent] = useState("");
+    const [links, setLinks] = useState([]);
     const kontenRef = useRef(null);
     const editorRef = useRef(null);
+    const inputLinksRef = useRef(null);
     useEffect(() => {
-        if (editorRef.current) {
-            return;
-        }
+        if (editorRef.current) return;
 
         editorRef.current = new Quill(kontenRef.current, { theme: "snow" });
-    });
+        editorRef.current.on("text-change", () => {
+            setInputContent(editorRef.current.root.innerHTML);
+        });
+    }, [editorRef.current?.root.innerHTML]);
+
     return (
         <AdminCampusLernLayout>
             <form className="min-h-[calc(100vh+200px)]">
@@ -61,7 +67,7 @@ export default function Create() {
                             />
                         </Field>
 
-                        <Field className="flex flex-col">
+                        <Field className="relative flex flex-col">
                             <Label className="text-xl">Semester</Label>
                             <Listbox
                                 value={selectedSemester}
@@ -71,7 +77,7 @@ export default function Create() {
                                 <ListboxButton className="rounded-lg border border-[#6b7280] px-3 py-2 text-left data-[open]:border-none data-[open]:ring-2 data-[open]:ring-[#2563eb]">
                                     Semseter {selectedSemester}
                                 </ListboxButton>
-                                <ListboxOptions className="cursor-pointer rounded-lg border border-[#6b7280] py-2">
+                                <ListboxOptions className="absolute top-[calc(100%+4px)] z-10 w-full cursor-pointer rounded-lg border border-[#6b7280] !bg-white py-2">
                                     {semesters.map((e) => (
                                         <ListboxOption
                                             key={e}
@@ -85,7 +91,14 @@ export default function Create() {
                             </Listbox>
                         </Field>
                         <div>
-                            <label htmlFor="konten">Konten</label>
+                            <label className="text-xl" htmlFor="konten">
+                                Konten
+                            </label>
+                            <input
+                                type="hidden"
+                                value={inputContent}
+                                name="inputKonten"
+                            />
                             <div className="group rounded-lg">
                                 <div
                                     id="konten"
@@ -94,6 +107,57 @@ export default function Create() {
                                 ></div>
                             </div>
                         </div>
+                        <Field className="flex flex-col">
+                            <Label className="text-xl">Link</Label>
+                            <div className="flex items-center justify-between gap-3">
+                                <Input
+                                    ref={inputLinksRef}
+                                    className="w-full rounded-lg"
+                                    type="text"
+                                />
+                                <img
+                                    src="/icon/add.svg"
+                                    alt="icon add"
+                                    className="size-10"
+                                    onClick={() => {
+                                        if (!inputLinksRef.current.value)
+                                            return;
+                                        setLinks([
+                                            ...links,
+                                            inputLinksRef.current.value,
+                                        ]);
+                                    }}
+                                />
+                            </div>
+                            <ul className="mt-1 space-y-1">
+                                {links.map((e, i) => (
+                                    <div key={i} className="flex items-center">
+                                        <li className="w-fit rounded-full bg-slate-200 p-0.5 px-3 text-blue-600 underline">
+                                            {e}
+                                        </li>
+                                        <img
+                                            onClick={() => {
+                                                setLinks(
+                                                    links.filter(
+                                                        (link, index) =>
+                                                            i !== index,
+                                                    ),
+                                                );
+                                            }}
+                                            src="/icon/cross.svg"
+                                            alt="cross icon"
+                                            className="size-5 cursor-pointer"
+                                        />
+                                    </div>
+                                ))}
+                            </ul>
+                        </Field>
+                        <Button
+                            type="submit"
+                            className="rounded-lg bg-darkBlueSecondary px-3 py-2 font-medium text-white"
+                        >
+                            Submit
+                        </Button>
                     </div>
                 </Fieldset>
             </form>
