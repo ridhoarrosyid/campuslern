@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Course;
-use App\Models\KeyTakeway;
+use App\Models\KeyTakeaway;
 use App\Models\Link;
 use App\Models\Major;
 use App\Models\University;
@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         University::factory()->count(8)->create();
         Major::factory()->count(30)->create();
         Course::factory()->count(60)->create();
-        KeyTakeway::factory()->count(60)->create();
+        KeyTakeaway::factory()->count(60)->create();
         Link::factory()->count(100)->create();
 
         // User::factory()->create([

@@ -16,8 +16,8 @@ class Major extends Model
         return $this->belongsTo(University::class);
     }
 
-    public function keyTakeways(): HasMany
+    public function keyTakeaways(): HasMany
     {
-        return $this->hasMany(KeyTakeway::class);
+        return $this->hasMany(KeyTakeaway::class);
     }
 }

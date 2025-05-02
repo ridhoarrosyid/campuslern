@@ -25,7 +25,7 @@ use Inertia\Inertia;
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-Route::get("/", [CourseContoller::class, "majors"]);
+Route::get("/", [CourseContoller::class, "majors"])->name('home');
 
 
 
