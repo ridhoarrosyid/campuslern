@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Major;
 use App\Models\University;
 use Illuminate\Http\Request;
@@ -28,11 +29,24 @@ class CourseContoller extends Controller
             $selectedUniv = University::where('id', "=", "$univ")->first(['id', 'name']);
         }
 
-        $universities = University::get(['id', 'name'])->toArray();
+        $universities = University::get(['id', 'name']);
         $universities = array_merge([['id' => 0, 'name' => "Semua"]], $universities);
-
-
 
         return Inertia::render('CampusLern/Home', ['majors' => $majors, 'initialSearch' => $search, 'univData' => $universities, "firstUnivSelect" => $selectedUniv]);
     }
+
+    public function courseList(string $majorId, Request $request)
+    {
+        $semester = $request->query('semester');
+        if (!$semester) $semester = 1;
+
+        $courses = Course::select('id', 'major_id', 'name', 'access', 'created_at', 'updated_at')->where('major_id', $majorId)->where('semester', $semester)->paginate(10);
+
+
+        $major = Major::select('id', 'university_id', 'name')->where('id', $majorId)->with('university:id,name')->first();
+
+        return Inertia::render('CampusLern/List', ['courses' => $courses, 'major' => $major, 'semester' => $semester]);
+    }
+
+    public function courseDetail() {}
 }

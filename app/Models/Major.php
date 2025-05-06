@@ -20,4 +20,9 @@ class Major extends Model
     {
         return $this->hasMany(KeyTakeaway::class);
     }
+
+    public function courses(): HasMany
+    {
+        return $this->hasMany(Course::class);
+    }
 }

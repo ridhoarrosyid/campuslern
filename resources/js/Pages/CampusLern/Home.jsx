@@ -13,7 +13,7 @@ import {
     Label,
 } from "@headlessui/react";
 import { Link, router } from "@inertiajs/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home({
     majors,
@@ -41,21 +41,34 @@ export default function Home({
         if (search) {
             query.search = search;
         }
-        router.get("/", query);
+        router.get(route("list", query));
     }
 
-    function handleFilter(e) {
-        e.preventDefault();
+    function handleFilter(univ) {
+        setSelectedUniv(univ);
         const query = {};
-        if (selectedUniv.id !== 0) {
-            query.univ = selectedUniv.id;
+        if (univ.id !== 0) {
+            query.univ = univ.id;
         }
         if (search) {
             query.search = search;
         }
-        console.log(query);
+
         router.get("/", query);
     }
+
+    function handlePagination(url) {
+        if (!url) return;
+        const page = new URL(url).searchParams.get("page");
+        const query = {};
+
+        if (selectedUniv.id) query.univ = selectedUniv.id;
+        if (search) query.search = search;
+        if (page) query.page = page;
+
+        router.get("/", query);
+    }
+
     return (
         <CampusLernLayout>
             <div className="flex h-[calc(100vh-80px)] items-center justify-center bg-lightGreySecondary/10">
@@ -110,7 +123,7 @@ export default function Home({
                     </button>
                 </form>
                 <div className="mx-auto flex max-w-[1120px] gap-x-4">
-                    <form onSubmit={handleFilter} className="-translate-y-8">
+                    <div className="-translate-y-8">
                         <div className="flex">
                             <img src="/icon/filter.svg" alt="filter icon" />
                             <h2 className="text-2xl font-medium">Filter</h2>
@@ -120,7 +133,7 @@ export default function Home({
                             <Label>
                                 <Combobox
                                     value={selectedUniv}
-                                    onChange={setSelectedUniv}
+                                    onChange={handleFilter}
                                     onClose={() => {
                                         setQuery("");
                                     }}
@@ -159,12 +172,14 @@ export default function Home({
                                 </Combobox>
                             </Label>
                         </Field>
-                        <Button type="submit">Filter</Button>
-                    </form>
+                    </div>
                     <div className="space-y-5">
                         <div className="grid grid-cols-2 gap-x-3 gap-y-9">
                             {majors.data.map((major) => (
                                 <div
+                                    onClick={() => {
+                                        router.get(`/${major.id}`);
+                                    }}
                                     key={major.id}
                                     className="flex flex-col gap-y-4 rounded-lg border border-lightGreySecondary p-6 shadow-xl"
                                 >
@@ -190,26 +205,21 @@ export default function Home({
                                 </div>
                             ))}
                         </div>
-                        {majors.total > 1 && (
+                        {majors.total > majors.per_page && (
                             <div className="mx-auto flex w-fit gap-x-2 text-base font-medium leading-none text-darkGreySecondary drop-shadow-2xl">
                                 {majors.links.map((e, i) => (
-                                    <Link
+                                    <Button
                                         as="button"
                                         disabled={!e.url}
-                                        href={
-                                            e.url
-                                                ? e.url +
-                                                  (search
-                                                      ? `&search=${search}`
-                                                      : "")
-                                                : "#"
-                                        }
+                                        onClick={() => {
+                                            handlePagination(e.url);
+                                        }}
                                         dangerouslySetInnerHTML={{
                                             __html: e.label,
                                         }}
                                         key={i}
                                         className={`p-2 disabled:opacity-50 ${e.active ? "rounded-md bg-lightBluePrimary p-2 text-white" : "rounded-sm"}`}
-                                    ></Link>
+                                    />
                                 ))}
                             </div>
                         )}

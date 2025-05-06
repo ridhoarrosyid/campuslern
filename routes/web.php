@@ -26,6 +26,8 @@ use Inertia\Inertia;
 // });
 
 Route::get("/", [CourseContoller::class, "majors"])->name('home');
+Route::get('/{majorId}', [CourseContoller::class, 'courseList'])->name("list");
+Route::get('/{majorId}/{courseId}', [CourseContoller::class, 'courseDetail'])->name('detail');
 
 
 
