@@ -1,6 +1,8 @@
 import AdminCampusLernLayout from "@/Layouts/AdminCampusLernLayout";
+import { Link } from "@inertiajs/react";
 
-export default function Dashboard() {
+export default function Dashboard({ courses }) {
+    console.log(courses);
     return (
         <>
             <AdminCampusLernLayout>
@@ -42,36 +44,41 @@ export default function Dashboard() {
                             </tr>
                         </thead>
                         <tbody>
-                            {Array.from({ length: 8 }, (_, i) => i).map((e) => (
-                                <tr key={e}>
-                                    <td className="p-3">Facebook Ads</td>
-                                    <td className="p-3">Bisnis Digital</td>
-                                    <td className="p-3">3</td>
-                                    <td className="p-3">Universitas Lampung</td>
+                            {courses.data.map((course) => (
+                                <tr key={course.id}>
+                                    <td className="p-3">{course.name} </td>
+                                    <td className="p-3">{course.major.name}</td>
+                                    <td className="p-3">{course.semester}</td>
+                                    <td className="p-3">
+                                        {course.major.university.name}
+                                    </td>
                                     <td className="space-x-2 p-3 font-bold text-white">
-                                        <a
-                                            href="#"
+                                        <Link
+                                            href={`#`}
                                             className="rounded-lg bg-[#FACC15] p-2"
                                         >
                                             Edit
-                                        </a>
-                                        <a
-                                            href="#"
+                                        </Link>
+                                        <Link
+                                            href={`/admin/${course.id}`}
                                             className="rounded-lg bg-lightBluePrimary p-2"
                                         >
                                             Detail
-                                        </a>
+                                        </Link>
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                     <div className="mx-auto mt-3 flex w-fit gap-x-2 text-base font-medium leading-none text-darkGreySecondary drop-shadow-2xl">
-                        <div className="rounded-md bg-lightBluePrimary p-2 text-white">
-                            1
-                        </div>
-                        <div className="rounded-sm p-2">2</div>
-                        <div className="rounded-sm p-2">3</div>
+                        {courses.links.map((link, i) => (
+                            <Link
+                                key={i}
+                                className={`p-2 ${link.active ? "rounded-md bg-lightBluePrimary p-2 text-white" : "rounded-sm"}`}
+                                href={link.url || ""}
+                                dangerouslySetInnerHTML={{ __html: link.label }}
+                            />
+                        ))}
                     </div>
                 </div>
             </AdminCampusLernLayout>

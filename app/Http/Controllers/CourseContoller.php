@@ -30,7 +30,7 @@ class CourseContoller extends Controller
         }
 
         $universities = University::get(['id', 'name'])->toArray();
-        $universities = array_merge([['id' => 0, 'name' => "Semua"]], $universities);
+        $universities = [[['id' => 0, 'name' => "Semua"]], ...$universities];
 
         return Inertia::render('CampusLern/Home', ['majors' => $majors, 'initialSearch' => $search, 'univData' => $universities, "firstUnivSelect" => $selectedUniv]);
     }

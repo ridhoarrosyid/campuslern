@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseContoller;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -25,11 +26,16 @@ use Inertia\Inertia;
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
+
+
+Route::prefix('/admin')->group(function () {
+    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/{courseId}', [AdminController::class, 'detailCourse'])->name('detailCourse');
+});
+
 Route::get("/", [CourseContoller::class, "majors"])->name('home');
 Route::get('/{majorId}', [CourseContoller::class, 'courseList'])->name("list");
 Route::get('/{majorId}/{courseId}', [CourseContoller::class, 'courseDetail'])->name('detail');
-
-
 
 
 
