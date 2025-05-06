@@ -15,7 +15,7 @@ export default function List({ courses, major, semester }) {
     const [selectedSemester, setSelectedSemester] = useState(semester);
     function handleSemester(semester) {
         setSelectedSemester(semester);
-        console.log("halo");
+
         router.get(route("list", { majorId: major.id, semester }));
     }
     function handlePagination(url) {
@@ -30,13 +30,18 @@ export default function List({ courses, major, semester }) {
             timeZone: "+07",
         });
     }
-    console.log(courses.data);
 
     return (
         <CampusLernLayout>
-            <h1 className="mx-auto mt-14 max-w-[1120px] text-[32px] font-medium">
-                {major.name}
-            </h1>
+            <div className="relative mx-auto mt-14 max-w-[1120px] text-[32px] font-medium">
+                <img
+                    onClick={() => router.visit("/")}
+                    src="/icon/arrow_left.svg"
+                    alt="arrow left"
+                    className="absolute size-12 -translate-x-[calc(100%+10px)] cursor-pointer"
+                />
+                <h1>{major.name}</h1>
+            </div>
             <div className="mx-auto mt-5 max-w-[1120px]">
                 <div className="flex justify-between rounded-xl border border-fontBlue px-12 py-6 text-2xl font-medium shadow-xl">
                     <div className="flex items-center justify-between gap-x-5">
@@ -98,10 +103,12 @@ export default function List({ courses, major, semester }) {
                                 <p className="w-[20%] text-darkGreySecondary">
                                     {course.access} akses
                                 </p>
-                                <img
-                                    src="/icon/arrow_right.svg"
-                                    alt="arrow right"
-                                />
+                                <Link href={`/${major.id}/${course.id}`}>
+                                    <img
+                                        src="/icon/arrow_right.svg"
+                                        alt="arrow right"
+                                    />
+                                </Link>
                             </div>
                         ))}
                     </div>

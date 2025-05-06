@@ -1,20 +1,21 @@
 import CampusLernLayout from "@/Layouts/CampusLernLayout";
+import { Link } from "@inertiajs/react";
+import { Fragment } from "react";
 
-export default function Detail() {
+const colors = ["bg-green-400", "bg-red-400", "bg-purple-400", "bg-blue-400"];
+
+export default function Detail({ course }) {
     return (
         <CampusLernLayout>
-            <div className="mx-auto mt-14 flex max-w-[1120px] flex-col gap-y-3 rounded-xl px-16 py-14 shadow-xl">
-                <h1 className="text-3xl">Facebook Ads</h1>
-                <p className="text-xl">
-                    Facebook Ads adalah platform periklanan digital yang
-                    menyediakan solusi pemasaran komprehensif bagi bisnis untuk
-                    menjangkau target audiens mereka melalui ekosistem Meta
-                    (Facebook, Instagram, Messenger, dan Audience Network).
-                    Materi ini dirancang untuk memberikan pemahaman mendalam
-                    tentang cara memanfaatkan Facebook Ads secara efektif, mulai
-                    dari setup dasar hingga strategi lanjutan untuk
-                    mengoptimalkan kampanye.
-                </p>
+            <div className="relative mx-auto mt-14 flex max-w-[1120px] flex-col gap-y-3 rounded-xl px-16 py-14 shadow-xl">
+                <img
+                    onClick={() => window.history.back()}
+                    src="/icon/arrow_left.svg"
+                    alt="arrow left"
+                    className="absolute size-9 -translate-x-[calc(100%+10px)] cursor-pointer"
+                />
+                <h1 className="text-3xl">{course.name}</h1>
+                <p className="text-xl">{course.content}</p>
                 <div className="relative">
                     <p className="mx-auto flex w-fit rounded-lg border-2 border-lightBluePrimary bg-white px-[6px] py-[5px] text-sm font-medium text-lightBluePrimary">
                         Sumber Terpercaya
@@ -22,22 +23,19 @@ export default function Detail() {
                     <hr className="absolute top-1/2 -z-10 w-full -translate-y-1/2 border-t-2 border-lightBluePrimary" />
                 </div>
                 <div className="grid grid-cols-[max-content_max-content] items-center gap-x-3 gap-y-2">
-                    <p className="rounded-lg bg-green-400 px-[10px] py-[5px] text-center">
-                        Official
-                    </p>
-                    <p>Google digital garage</p>
-                    <p className="rounded-lg bg-red-400 px-[10px] py-[5px] text-center">
-                        Article
-                    </p>
-                    <p>Hubspot Blog </p>
-                    <p className="rounded-lg bg-purple-400 px-[10px] py-[5px] text-center">
-                        Cousera
-                    </p>
-                    <p>Cousera: Digital marketing specialization</p>
-                    <p className="rounded-lg bg-blue-400 px-[10px] py-[5px] text-center">
-                        Guide
-                    </p>
-                    <p>HootSuite Academy</p>
+                    {course.links.map((link, index) => {
+                        const selectedColor = colors[index % colors.length];
+                        return (
+                            <Fragment key={link.id}>
+                                <p
+                                    className={`rounded-lg ${selectedColor} px-[10px] py-[5px] text-center`}
+                                >
+                                    {link.tag}
+                                </p>
+                                <Link href={link.address}>{link.display}</Link>
+                            </Fragment>
+                        );
+                    })}
                 </div>
             </div>
         </CampusLernLayout>

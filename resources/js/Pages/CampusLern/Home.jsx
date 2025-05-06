@@ -77,7 +77,7 @@ export default function Home({
                         <h1 className="text-5xl font-bold tracking-tight text-lightBluePrimary">
                             <span className="font-thin text-black">
                                 Your Path to
-                            </span>
+                            </span>{" "}
                             Academic Success, Simplified
                         </h1>
                         <p className="text-lg text-darkGreySecondary">
