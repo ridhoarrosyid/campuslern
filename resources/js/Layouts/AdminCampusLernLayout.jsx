@@ -5,7 +5,8 @@ import { Link, usePage } from "@inertiajs/react";
 
 export default function AdminCampusLernLayout({ children, className }) {
     const { url } = usePage();
-    console.log(url);
+    const validasiRegex = /^\/admin\/(create|\d+\/edit)$/;
+    const isMateriSection = validasiRegex.test(url);
     return (
         <>
             <div className="fixed left-0 h-full w-[235px] justify-stretch bg-[#f1f1f1] p-8 shadow-lg">
@@ -25,7 +26,7 @@ export default function AdminCampusLernLayout({ children, className }) {
                         <HomeIcon className="size-6" /> <p>Dashboard</p>
                     </Link>
                     <div
-                        className={`flex cursor-default gap-3 px-[15px] py-3 ${/^\/admin\/\d+$/.test(url) ? "rounded-lg bg-lightBluePrimary text-white" : "text-[#343434]"}`}
+                        className={`flex cursor-default gap-3 px-[15px] py-3 ${isMateriSection ? "rounded-lg bg-lightBluePrimary text-white" : "text-[#343434]"}`}
                     >
                         <BookIcon className="size-6" /> <p>Materi</p>
                     </div>

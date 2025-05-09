@@ -9,4 +9,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class KeyTakeaway extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $fillable = ['major_id', 'name'];
 }

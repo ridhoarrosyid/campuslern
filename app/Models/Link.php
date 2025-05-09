@@ -9,4 +9,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Link extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $fillable = ['course_id', 'tag', 'display', 'address'];
 }

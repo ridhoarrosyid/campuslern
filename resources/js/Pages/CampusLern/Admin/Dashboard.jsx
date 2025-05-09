@@ -20,8 +20,8 @@ export default function Dashboard({ courses }) {
                             <span className="font-bold">Id:</span> 1111
                         </li>
                     </ul>
-                    <a
-                        href="#"
+                    <Link
+                        href="/admin/create"
                         className="flex items-center rounded-lg bg-lightBluePrimary p-3 font-bold text-white"
                     >
                         <span>Add Materi</span>
@@ -30,7 +30,7 @@ export default function Dashboard({ courses }) {
                             alt="plus icon"
                             className="w-6"
                         />
-                    </a>
+                    </Link>
                 </div>
                 <div className="mt-3">
                     <table className="w-full overflow-hidden rounded-lg shadow-lg">

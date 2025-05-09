@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Major extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $fillable = ['name', 'university_id', 'description'];
     public function university(): BelongsTo
     {
         return $this->belongsTo(University::class);

@@ -30,7 +30,11 @@ use Inertia\Inertia;
 
 Route::prefix('/admin')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/create', [AdminController::class, 'addCourse'])->name('addCourse');
     Route::get('/{courseId}', [AdminController::class, 'detailCourse'])->name('detailCourse');
+    Route::post('/createCourse', [AdminController::class, 'createCourse'])->name('createCourse');
+    Route::post('/createUniversity', [AdminController::class, 'createUniversity'])->name('createUniversity');
+    Route::post('/createMajor', [AdminController::class, 'createMajor'])->name('createMajor');
 });
 
 Route::get("/", [CourseContoller::class, "majors"])->name('home');

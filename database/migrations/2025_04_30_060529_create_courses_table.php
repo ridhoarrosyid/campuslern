@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId("major_id")->constrained()->onDelete("set null");
             $table->string("name");
-            $table->string("content");
-            $table->integer("access");
+            $table->longText("content");
+            $table->integer("access")->nullable();
             $table->enum("semester", [1, 2, 3, 4, 5, 6, 7, 8]);
             $table->softDeletes();
-            $table->unsignedBigInteger('created_by');
-            $table->unsignedBigInteger("updated_by");
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger("updated_by")->nullable();
             $table->foreign("created_by")->references("id")->on("users")->onDelete("set null");
             $table->foreign("updated_by")->references("id")->on("users")->onDelete("set null");
             $table->timestamps();
